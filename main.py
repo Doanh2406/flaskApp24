@@ -7,7 +7,6 @@ import pickle
 from math import sqrt
 
 df = pd.read_csv (r'C:\Users\quocd\Desktop\flash-backend\traindata.csv')
-print (df)
 df.head()
 print (df.head())
 
@@ -25,8 +24,12 @@ cat_feat = ['CONSOLE','CATEGORY', 'PUBLISHER', 'RATING']
 features = list(set(train.columns)-set(['SalesInMillions']))
 target = 'SalesInMillions'
 model = cat.CatBoostRegressor(random_state=100,cat_features=cat_feat,verbose=0)
-
+print(cat_feat)
+print(train.columns)
+print("day laf fearture")
+print(features)
 model.fit(train[features],train[target])
+
 
 y_true= pd.DataFrame(data=test[target], columns=['SalesInMillions'])
 test_temp = test.drop(columns=[target])
@@ -35,5 +38,5 @@ y_pred = model.predict(test_temp[features])
 rmse = sqrt(mean_squared_error(y_true, y_pred))
 print(rmse)
 
-filename = 'final_model.sav'
+filename = 'final_model2.sav'
 pickle.dump(model, open(filename, 'wb'))

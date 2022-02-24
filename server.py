@@ -6,7 +6,7 @@ import pickle
 import sys
 from sklearn import preprocessing 
 from flask_cors import CORS,cross_origin
-model = pickle.load(open("final_model.sav", "rb"))
+model = pickle.load(open("final_model2.sav", "rb"))
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -27,7 +27,7 @@ def get_prediction():
   if not request.json:
     abort(400)
   df = pd.DataFrame(request.json, index=[0])
-  cols=["CONSOLE","YEAR","CATEGORY","PUBLISHER","RATING","CRITICS_POINT","USER_POINT"]
+  cols=['RATING','USER_POINT','CATEGORY','YEAR','PUBLISHER','CONSOLE','CRITICS_POINT']
   df = df[cols]
   print(df, file=sys.stderr)
   le = preprocessing.LabelEncoder()
